@@ -1,10 +1,13 @@
 resource "aws_efs_file_system" "efs" {
   count = var.deploy_efs ? 1 : 0
 
-  creation_token   = "${var.teamid}-${var.prjid}"
-  performance_mode = var.performance_mode
-  encrypted        = var.encrypted
-  tags             = merge(local.shared_tags)
+  creation_token                  = var.name != null ? var.name : "${var.teamid}-${var.prjid}"
+  performance_mode                = var.performance_mode
+  provisioned_throughput_in_mibps = var.throughput_mode == "provisioned" ? var.provisioned_throughput : null
+  encrypted                       = var.encrypted
+  kms_key_id                      = var.encrypted == true ? var.kms_key_id : null
+
+  tags = merge(local.shared_tags)
 
   dynamic "lifecycle_policy" {
     for_each = var.transition_to_ia == "" ? [] : [1]
@@ -15,7 +18,8 @@ resource "aws_efs_file_system" "efs" {
 }
 
 resource "aws_efs_mount_target" "default" {
-  count           = length(module.global.list_of_subnets[var.account_id][var.aws_region]) > 0 ? length(module.global.list_of_subnets[var.account_id][var.aws_region]) : 0
+  count = length(module.global.list_of_subnets[var.account_id][var.aws_region]) > 0 ? length(module.global.list_of_subnets[var.account_id][var.aws_region]) : 0
+
   file_system_id  = join("", aws_efs_file_system.efs.*.id)
   ip_address      = var.mount_target_ip_address
   subnet_id       = module.global.list_of_subnets[var.account_id][var.aws_region][count.index]

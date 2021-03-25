@@ -1,9 +1,13 @@
+module "common" {
+  source = "git::git@github.com:tomarv2/terraform-global.git//common?ref=v0.0.1"
+}
+
 module "efs" {
   source = "../"
 
-  email                  = "varun.tomar@databricks.com"
   account_id             = "755921336062"
   security_groups_to_use = [module.security_group.security_group_id]
+  encrypted              = true
   #-------------------------------------------
   # Do not change the teamid, prjid once set.
   teamid = var.teamid
@@ -11,10 +15,27 @@ module "efs" {
 }
 
 module "security_group" {
-  source = "git::git@github.com:tomarv2/terraform-aws-security-group.git?ref=v0.0.1"
+  source = "git::git@github.com:tomarv2/terraform-aws-security-group.git?ref=v0.0.2"
 
-  email         = "varun.tomar@databricks.com"
-  service_ports = [5432]
+  account_id = "755921336062"
+  security_group_ingress = {
+    default = {
+      description = "https"
+      from_port   = 443
+      protocol    = "tcp"
+      to_port     = 443
+      self        = true
+      cidr_blocks = []
+    },
+    ssh = {
+      description = "ssh"
+      from_port   = 22
+      protocol    = "tcp"
+      to_port     = 22
+      self        = false
+      cidr_blocks = module.common.cidr_for_sec_grp_access
+    }
+  }
   #-------------------------------------------
   # Do not change the teamid, prjid once set.
   teamid = var.teamid
