@@ -50,6 +50,12 @@ variable "deploy_efs" {
   type        = bool
 }
 
+variable "efs_mount_target" {
+  description = "feature flag, true or false"
+  default     = true
+  type        = bool
+}
+
 variable "subnets" {
   default     = []
   description = "Subnet IDs that the EFS mount points should be created on (required if `create==true`)"
@@ -80,4 +86,8 @@ variable "name" {
 variable "provisioned_throughput" {
   default     = null
   description = "Provisioned throughput (in mbps)"
+}
+
+variable "efs_file_system_id" {
+  default = null
 }
