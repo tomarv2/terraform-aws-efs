@@ -23,7 +23,6 @@ variable "throughput_mode" {
 variable "security_groups" {
   description = "Security Groups"
   type        = list(any)
-
 }
 
 variable "encrypted" {
@@ -35,17 +34,6 @@ variable "encrypted" {
 variable "kms_key_id" {
   description = "The ARN for the KMS encryption key. When specifying kms_key_id, encrypted needs to be set to true."
   default     = ""
-  type        = string
-}
-
-variable "account_id" {
-  description = "AWS account id (used to pull values from shared base module like vpc info, subnet ids)"
-  type        = string
-}
-
-variable "aws_region" {
-  description = "AWS region to deploy resources"
-  default     = "us-west-2"
   type        = string
 }
 
