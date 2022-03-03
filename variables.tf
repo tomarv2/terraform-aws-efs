@@ -38,17 +38,6 @@ variable "kms_key_id" {
   type        = string
 }
 
-variable "account_id" {
-  description = "AWS account id (used to pull values from shared base module like vpc info, subnet ids)"
-  type        = string
-}
-
-variable "aws_region" {
-  description = "AWS region to deploy resources"
-  default     = "us-west-2"
-  type        = string
-}
-
 variable "deploy_efs" {
   description = "feature flag, true or false"
   default     = true

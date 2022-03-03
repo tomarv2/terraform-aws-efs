@@ -24,7 +24,7 @@
 ## Versions
 
 - Module tested for Terraform 1.0.1.
-- AWS provider version [3.63.0](https://registry.terraform.io/providers/hashicorp/aws/latest)
+- AWS provider version [3.63](https://registry.terraform.io/providers/hashicorp/aws/latest)
 - `main` branch: Provider versions not pinned to keep up with Terraform releases
 - `tags` releases: Tags are pinned with versions (use <a href="https://github.com/tomarv2/terraform-aws-efs/tags" alt="GitHub tag">
         <img src="https://img.shields.io/github/v/tag/tomarv2/terraform-aws-efs" /></a> in your releases)
@@ -99,7 +99,6 @@ tf -c=aws destroy -var='teamid=foo' -var='prjid=bar'
 module "efs" {
   source = "../"
 
-  account_id             = "123456789012"
   security_groups = [<security group id>]
   #-------------------------------------------
   # Do not change the teamid, prjid once set.
@@ -117,7 +116,6 @@ module "common" {
 module "efs" {
   source = "../"
 
-  account_id             = "123456789012"
   security_groups        = [module.security_group.security_group_id]
   encrypted              = true
   #-------------------------------------------
@@ -129,7 +127,6 @@ module "efs" {
 module "security_group" {
   source = "git::git@github.com:tomarv2/terraform-aws-security-group.git?ref=v0.0.2"
 
-  account_id = "123456789012"
   security_group_ingress = {
     default = {
       description = "https"
@@ -138,6 +135,7 @@ module "security_group" {
       to_port     = 443
       self        = true
       cidr_blocks = []
+      type        = "ingress"
     },
     ssh = {
       description = "ssh"
@@ -146,6 +144,7 @@ module "security_group" {
       to_port     = 22
       self        = false
       cidr_blocks = module.common.cidr_for_sec_grp_access
+      type        = "ingress"
     }
   }
   #-------------------------------------------
