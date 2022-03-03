@@ -23,7 +23,6 @@ variable "throughput_mode" {
 variable "security_groups" {
   description = "Security Groups"
   type        = list(any)
-
 }
 
 variable "encrypted" {
