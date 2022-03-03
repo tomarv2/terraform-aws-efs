@@ -6,7 +6,7 @@ variable "prjid" {
   description = "(Required) Name of the project/stack e.g: mystack, nifieks, demoaci. Should not be changed after running 'tf apply'"
 }
 
-variable "profile_to_use" {
+variable "profile" {
   description = "Getting values from ~/.aws/credentials"
   default     = "default"
 }
@@ -21,7 +21,7 @@ variable "throughput_mode" {
   default     = "bursting"
 }
 
-variable "security_groups_to_use" {
+variable "security_groups" {
   description = "Security Groups"
   type        = list(any)
 }
