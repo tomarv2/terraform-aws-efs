@@ -1,7 +1,6 @@
 output "file_system_id" {
   description = "The ID of the file system for which the mount target is intended"
-
-  value = module.efs.file_system_id
+  value       = module.efs.file_system_id
 }
 
 output "file_system_dns_name" {

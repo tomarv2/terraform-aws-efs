@@ -1,3 +1,16 @@
+terraform {
+  required_version = ">= 1.0.1"
+  required_providers {
+    aws = {
+      version = "~> 3.63"
+    }
+  }
+}
+
+provider "aws" {
+  region = var.region
+}
+
 module "common" {
   source = "git::git@github.com:tomarv2/terraform-global.git//common?ref=v0.0.1"
 }
@@ -5,7 +18,6 @@ module "common" {
 module "efs" {
   source = "../"
 
-  account_id             = "123456789012"
   security_groups_to_use = [module.security_group.security_group_id]
   encrypted              = true
   #-------------------------------------------
@@ -15,9 +27,8 @@ module "efs" {
 }
 
 module "security_group" {
-  source = "git::git@github.com:tomarv2/terraform-aws-security-group.git?ref=v0.0.6"
+  source = "git::git@github.com:tomarv2/terraform-aws-security-group.git?ref=v0.0.7"
 
-  account_id = "123456789012"
   security_group_ingress = {
     default = {
       description = "https"
@@ -26,6 +37,7 @@ module "security_group" {
       to_port     = 443
       self        = true
       cidr_blocks = []
+      type        = "ingress"
     },
     ssh = {
       description = "ssh"
@@ -34,6 +46,7 @@ module "security_group" {
       to_port     = 22
       self        = false
       cidr_blocks = module.common.cidr_for_sec_grp_access
+      type        = "ingress"
     }
   }
   #-------------------------------------------

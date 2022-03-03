@@ -7,3 +7,9 @@ variable "prjid" {
   description = "Name of the project/stack e.g: mystack, nifieks, demoaci. Should not be changed after running 'tf apply'"
   type        = string
 }
+
+variable "region" {
+  description = "AWS region to create resources"
+  default     = "us-west-2"
+  type        = string
+}
