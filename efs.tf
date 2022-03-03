@@ -20,10 +20,10 @@ resource "aws_efs_file_system" "efs" {
 resource "aws_efs_mount_target" "default" {
   count = length(module.global.list_of_subnets[var.account_id][var.aws_region]) > 0 && var.efs_mount_target == true ? length(module.global.list_of_subnets[var.account_id][var.aws_region]) : 0
 
-  file_system_id  = var.efs_file_system_id == null ? join("", aws_efs_file_system.efs.*.id) : var.efs_file_system_id
+  file_system_id  = var.file_system_id == null ? join("", aws_efs_file_system.efs.*.id) : var.file_system_id
   ip_address      = var.mount_target_ip_address
   subnet_id       = module.global.list_of_subnets[var.account_id][var.aws_region][count.index]
-  security_groups = var.security_groups_to_use
+  security_groups = var.security_groups
 }
 
 resource "aws_efs_access_point" "default" {

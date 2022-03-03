@@ -5,7 +5,7 @@ module "common" {
 module "efs" {
   source = "../"
 
-  account_id             = "755921336062"
+  account_id             = "123456789012"
   security_groups_to_use = [module.security_group.security_group_id]
   encrypted              = true
   #-------------------------------------------
@@ -15,9 +15,9 @@ module "efs" {
 }
 
 module "security_group" {
-  source = "git::git@github.com:tomarv2/terraform-aws-security-group.git?ref=v0.0.2"
+  source = "git::git@github.com:tomarv2/terraform-aws-security-group.git?ref=v0.0.6"
 
-  account_id = "755921336062"
+  account_id = "123456789012"
   security_group_ingress = {
     default = {
       description = "https"
