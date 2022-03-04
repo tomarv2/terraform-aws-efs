@@ -190,8 +190,8 @@ Please refer to examples directory [link](examples) for references.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_access_points"></a> [access\_points](#input\_access\_points) | A map of the access points you would like in your EFS volume | `map(map(map(any)))` | `{}` | no |
-| <a name="input_deploy_efs"></a> [deploy\_efs](#input\_deploy\_efs) | feature flag, true or false | `bool` | `true` | no |
-| <a name="input_efs_mount_target"></a> [efs\_mount\_target](#input\_efs\_mount\_target) | feature flag, true or false | `bool` | `true` | no |
+| <a name="input_deploy_efs"></a> [deploy\_efs](#input\_deploy\_efs) | Feature flag, true or false | `bool` | `true` | no |
+| <a name="input_efs_mount_target"></a> [efs\_mount\_target](#input\_efs\_mount\_target) | Feature flag, true or false | `bool` | `true` | no |
 | <a name="input_encrypted"></a> [encrypted](#input\_encrypted) | The disk will be encrypted | `bool` | `true` | no |
 | <a name="input_file_system_id"></a> [file\_system\_id](#input\_file\_system\_id) | The ID of the file system for which the mount target is intended | `string` | `null` | no |
 | <a name="input_kms_key_id"></a> [kms\_key\_id](#input\_kms\_key\_id) | The ARN for the KMS encryption key. When specifying kms\_key\_id, encrypted needs to be set to true. | `string` | `""` | no |
