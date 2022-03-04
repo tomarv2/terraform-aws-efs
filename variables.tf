@@ -38,13 +38,13 @@ variable "kms_key_id" {
 }
 
 variable "deploy_efs" {
-  description = "feature flag, true or false"
+  description = "Feature flag, true or false"
   default     = true
   type        = bool
 }
 
 variable "efs_mount_target" {
-  description = "feature flag, true or false"
+  description = "Feature flag, true or false"
   default     = true
   type        = bool
 }
