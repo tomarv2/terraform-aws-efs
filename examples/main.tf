@@ -2,7 +2,7 @@ terraform {
   required_version = ">= 1.0.1"
   required_providers {
     aws = {
-      version = "~> 3.63"
+      version = "~> 3.74"
     }
   }
 }
@@ -27,7 +27,7 @@ module "efs" {
 }
 
 module "security_group" {
-  source = "git::git@github.com:tomarv2/terraform-aws-security-group.git?ref=v0.0.7"
+  source = "git::git@github.com:tomarv2/terraform-aws-security-group.git?ref=v0.0.10"
 
   security_group_ingress = {
     default = {
