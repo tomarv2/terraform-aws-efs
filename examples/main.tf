@@ -2,7 +2,7 @@ terraform {
   required_version = ">= 1.0.1"
   required_providers {
     aws = {
-      version = "~> 3.74"
+      version = "~> 4.61"
     }
   }
 }
@@ -12,7 +12,7 @@ provider "aws" {
 }
 
 module "common" {
-  source = "git::git@github.com:tomarv2/terraform-global.git//common?ref=v0.0.1"
+  source = "github.com/tomarv2/terraform-global.git//common?ref=v0.0.1"
 }
 
 module "efs" {
@@ -20,14 +20,11 @@ module "efs" {
 
   security_groups_to_use = [module.security_group.security_group_id]
   encrypted              = true
-  #-------------------------------------------
-  # Do not change the teamid, prjid once set.
-  teamid = var.teamid
-  prjid  = var.prjid
+
 }
 
 module "security_group" {
-  source = "git::git@github.com:tomarv2/terraform-aws-security-group.git?ref=v0.0.10"
+  source = "github.com/tomarv2/terraform-aws-security-group.git?ref=v0.0.10"
 
   security_group_ingress = {
     default = {
@@ -49,8 +46,5 @@ module "security_group" {
       type        = "ingress"
     }
   }
-  #-------------------------------------------
-  # Do not change the teamid, prjid once set.
-  teamid = var.teamid
-  prjid  = var.prjid
+
 }
